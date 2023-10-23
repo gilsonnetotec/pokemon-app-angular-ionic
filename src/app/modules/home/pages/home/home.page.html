@@ -3,7 +3,7 @@
     <ion-list>
       Lista de Pokemons:
       <ion-item *ngFor="let i of items">
-        <button (click)="getPokemon(i.name)"><ion-label>{{i.name}}</ion-label></button>
+        <button style="background-color: transparent;" (click)="getPokemon(i.name)"><ion-label>{{i.name}}</ion-label></button>
         <button style="margin-left: 5rem; background-color: transparent;" (click)="getFavorite(i.name)"><img
             src="assets/icon/shapes.svg" class="imagem-svg"></button>
       </ion-item>
@@ -42,9 +42,11 @@
   <ion-card *ngIf="!isLoading" class="ion-show-md">
     <ion-list>
       Pokemons Favoritos
-      <ion-item *ngFor="let favorite of favorites">
+      <ion-item *ngFor="let favorite of favorites; let i = index">
         <ion-label>{{favorite}}</ion-label>
+        <button style="margin-right: 1rem;" (click)="removeFavorite(i)">Remover</button>
       </ion-item>
     </ion-list>
+    <button (click)="sendFavorite()">Enviar Favoritos</button>
   </ion-card>
 </ion-card>

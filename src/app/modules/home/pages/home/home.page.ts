@@ -88,8 +88,24 @@ export class HomePage extends BasePageComponent implements OnInit {
   }
 
   getFavorite(name: string) {
-    if (!this.favorites.includes(name)) {
+    if (!this.favorites.includes(name) && this.favorites.length <= 10) {
       this.favorites.push(name);
     }
+    if(this.favorites.length == 10){
+      alert("Máximo aceito é 10 itens favoritos");
+    }
+  }
+
+  removeFavorite(index: number) {
+    if (index >= 0 && index < this.favorites.length) {
+      this.favorites.splice(index, 1);
+    }
+  }
+
+  sendFavorite(){
+    this.favorites = [];
+    setTimeout(() => {
+      alert("Favoritos Salvo!!!");
+    }, 500);
   }
 }
