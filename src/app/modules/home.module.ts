@@ -4,18 +4,19 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home/pages/home/home.page';
 import { PokemonService } from 'src/app/core/services/pokemon.service';
+import { LocationAreaService } from '../core/services/location-area.service';
 import { HomePageRoutingModule } from './home-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule, 
-    IonicModule, 
+    FormsModule,
+    IonicModule,
     HomePageRoutingModule,
     HttpClientModule
   ],
-  providers: [PokemonService],
+  providers: [PokemonService, LocationAreaService],
   declarations: [HomePage]
 })
-export class HomePageModule {}
+export class HomePageModule { }
