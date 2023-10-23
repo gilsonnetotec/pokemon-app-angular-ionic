@@ -1,9 +1,11 @@
 <ion-card class="card-main">
-  <ion-card *ngIf="!isLoading">
+  <ion-card *ngIf="!isLoading" class="ion-show-md">
     <ion-list>
       Lista de Pokemons:
       <ion-item *ngFor="let i of items">
         <button (click)="getPokemon(i.name)"><ion-label>{{i.name}}</ion-label></button>
+        <button style="margin-left: 5rem; background-color: transparent;" (click)="getFavorite(i.name)"><img
+            src="assets/icon/shapes.svg" class="imagem-svg"></button>
       </ion-item>
     </ion-list>
     <ion-card class="pages" *ngIf="!isLoading && isPaginate()">
@@ -20,21 +22,29 @@
       </ion-card>
     </ion-card>
   </ion-card>
-  <ion-card class="details" *ngIf="namePokemon !== ''">
+  <ion-card class="details" *ngIf="namePokemon !== ''" class="ion-show-md">
     <ion-card-header>
       <ion-card-title>{{namePokemon}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-item>
         <ion-thumbnail slot="start">
-          <img src={{logo}} alt="Imagem do Pokémon">
+          <img [src]="logo" alt="Imagem do Pokémon">
         </ion-thumbnail>
       </ion-item>
       <ion-item>
         <ion-thumbnail>
-          <button style="margin-top: 1rem; font-weight: bolder; border: white; padding: 0.5rem; border-radius: 0.5rem;" (click)="getDetails()">Detalhes</button>
+          <button (click)="getDetails()" class="details-button">Detalhes</button>
         </ion-thumbnail>
       </ion-item>
     </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="!isLoading" class="ion-show-md">
+    <ion-list>
+      Pokemons Favoritos
+      <ion-item *ngFor="let favorite of favorites">
+        <ion-label>{{favorite}}</ion-label>
+      </ion-item>
+    </ion-list>
   </ion-card>
 </ion-card>

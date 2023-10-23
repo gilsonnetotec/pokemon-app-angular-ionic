@@ -28,6 +28,7 @@ export class HomePage extends BasePageComponent implements OnInit {
   countItems: number = 0;
   abilities: Abilities[] = [];
   forms: Forms[] = [];
+  favorites: string[] = [];
 
   constructor(private pokemonService: PokemonService, private router: Router) {
     super()
@@ -84,5 +85,11 @@ export class HomePage extends BasePageComponent implements OnInit {
       },
       queryParamsHandling: 'merge'
     });
+  }
+
+  getFavorite(name: string) {
+    if (!this.favorites.includes(name)) {
+      this.favorites.push(name);
+    }
   }
 }

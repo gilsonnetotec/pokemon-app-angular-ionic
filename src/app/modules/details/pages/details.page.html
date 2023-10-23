@@ -6,7 +6,7 @@
         <ion-card-content>
             <ion-item>
                 <ion-thumbnail slot="start">
-                    <img src={{logo}} alt="Imagem do Pokémon">
+                    <img [src]="logo" alt="Imagem do Pokémon">
                 </ion-thumbnail>
             </ion-item>
             <ion-item>
@@ -38,11 +38,12 @@
                 <ion-label>{{item?.species?.name}}</ion-label>
             </ion-item>
             <ion-item>
-                <button style="margin-top: 1rem; font-weight: bolder; border: white; padding: 0.5rem; border-radius: 0.5rem;" (click)="getReturn()">Voltar</button>
+                <button (click)="getReturn()" class="details-button">Voltar</button>
             </ion-item>
         </ion-card-content>
     </ion-card>
-    <ion-card class="details" *ngIf="namePokemon !== ''">
+
+    <ion-card class="details ion-show-md" *ngIf="namePokemon !== ''">
         <ion-card-content>
             <ion-item *ngIf="locationAreas.length > 0">
                 <ion-list>
