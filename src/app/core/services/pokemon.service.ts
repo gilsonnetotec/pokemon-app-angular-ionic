@@ -2,10 +2,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Pokemon } from '../models/pokemon.model';
+import { Pokemons } from '../models/pokemon.model';
 
 @Injectable({providedIn: 'root'})
-export class HomeService {
-  base_url: string = `https://pokeapi.co/api/v2/`;
+export class PokemonService {
+  base_url: string = `https://pokeapi.co/api/v2/pokemon/`;
   constructor(private httpClient: HttpClient) { }
 
   prepareParams(paramsObj: any): HttpParams {
@@ -18,11 +19,14 @@ export class HomeService {
       return searchParams;
   }
 
-  /*getPokemon(name: string): Observable<any[]> {
-    return this.httpClient.get<any[]>(`${this.base_url}pokemon/${name}`);
-  }*/
+  getAll(payload: any): Observable<Pokemons[]>{
+    return this.httpClient.get<Pokemons[]>(this.base_url, {
+      params: this.prepareParams(payload)
+    });
+  }
+
   getPokemon(name: string): Observable<Pokemon[]> {
-    return this.httpClient.get<Pokemon[]>(`${this.base_url}pokemon/${name}`);
+    return this.httpClient.get<Pokemon[]>(`${this.base_url}${name}`);
   }
 
 }

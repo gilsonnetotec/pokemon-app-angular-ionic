@@ -1,35 +1,67 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from '../../../../core/services/home.service';
+import { PokemonService } from '../../../../core/services/pokemon.service';
 import { take } from 'rxjs';
 import { Pokemon } from 'src/app/core/models/pokemon.model';
-
+import { Pokemons } from 'src/app/core/models/pokemon.model';
+import { BasePageComponent } from 'src/app/core/utils/BasePageComponent';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage extends BasePageComponent implements OnInit {
 
-  isLoading:boolean = true;
+  isLoading: boolean = true;
+  isSearch: boolean = false;
   logo: any;
-  namePokemon:string =  "ditto";
-  items: Pokemon | undefined;
+  namePokemon: string = ""; //ditto
+  item: Pokemon | undefined;
+  params: any = {
+    limit: 10,
+    offset: 0,
+  }
+  items: Pokemons[] = [];
 
-  constructor(private homeService: HomeService) { 
+  constructor(private pokemonService: PokemonService) {
+    super()
+  }
 
+  loadPage(type: any) {
+    this.prepareType(type);
+    this.load('page');
   }
 
   ngOnInit(): void {
     this.namePokemon = this.namePokemon.charAt(0).toUpperCase() + this.namePokemon.slice(1)
-    this.load();
+    this.load(true);
   }
 
-  load() {
-    this.homeService.getPokemon("ditto")
+  load(isSearch: any) {
+    this.isSearch = isSearch;
+    if (isSearch == true || isSearch == 'page') {
+      if (isSearch == true) {
+        this.paginate.start = 0;
+      }
+    }
+    this.isLoading = true;
+    this.params.offset = this.paginate.start;
+    this.pokemonService.getAll(this.params)
       .pipe(take(1))
       .subscribe((resp: any) => {
-        this.items = resp;
-        this.logo = this.items?.sprites.other['official-artwork'].front_default;
+        this.paginate.total = resp["count"];
+        this.items = resp["results"];
+        this.isLoading = false;
+      })
+
+  }
+
+  getPokemon(name: string) {
+    this.pokemonService.getPokemon(name)
+      .pipe(take(1))
+      .subscribe((resp: any) => {
+        this.item = resp;
+        this.namePokemon = name;
+        this.logo = this.item?.sprites.other['official-artwork'].front_default;
         this.isLoading = false;
       })
   }

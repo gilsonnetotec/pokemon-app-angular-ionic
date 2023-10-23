@@ -7,3 +7,8 @@ export interface Pokemon{
         }
     }
 }
+
+export interface Pokemons {
+    name: string,
+    url: string
+}
