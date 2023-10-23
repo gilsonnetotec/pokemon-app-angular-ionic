@@ -2,7 +2,7 @@ export class BasePageComponent {
   paginate = {
     start: 0,
     total: 0,
-    perPage: 20,
+    perPage: 10,
     page: 1
   };
   domainId: any = '';

@@ -5,6 +5,17 @@
         <button (click)="getPokemon(i.name)"><ion-label>{{i.name}}</ion-label></button>
       </ion-item>
     </ion-list>
+    <ion-card class="pages" *ngIf="!isLoading && isPaginate()">
+      mostrando {{paginate.start+1}} à {{currentPage}} de {{countItems}} registros
+      <ion-card class="buttonPages"> <button (click)="loadPage('first')" [disabled]="isFirstPage()" type="button"
+          class="p-button-text">Primeiro</button>
+        <button (click)="loadPage('prev')" [disabled]="isFirstPage()" type="button"
+          class="p-button-text">Anterior</button>
+        <button (click)="loadPage('next')" [disabled]="isLastPage()" type="button"
+          class="p-button-text">Próximo</button>
+        <button (click)="loadPage('last')" [disabled]="isLastPage()" type="button"
+          class="p-button-text">Último</button> </ion-card>
+    </ion-card>
   </ion-card>
   <ion-card class="details" *ngIf="namePokemon !== ''">
     <ion-card-header>

@@ -21,6 +21,7 @@ export class HomePage extends BasePageComponent implements OnInit {
     offset: 0,
   }
   items: Pokemons[] = [];
+  countItems: number = 0;
 
   constructor(private pokemonService: PokemonService) {
     super()
@@ -43,12 +44,13 @@ export class HomePage extends BasePageComponent implements OnInit {
         this.paginate.start = 0;
       }
     }
-    this.isLoading = true;
     this.params.offset = this.paginate.start;
     this.pokemonService.getAll(this.params)
       .pipe(take(1))
       .subscribe((resp: any) => {
-        this.paginate.total = resp["count"];
+        const count = Math.ceil(Number(resp["count"]) / this.params.limit);
+        this.countItems = resp["count"];
+        this.paginate.total = count;
         this.items = resp["results"];
         this.isLoading = false;
       })
