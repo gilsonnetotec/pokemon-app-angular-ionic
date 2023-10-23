@@ -38,13 +38,18 @@
 
 .pages {
   margin-top: 1rem;
+
+  #text-page {
+    float: center;
+  }
 }
 
-.buttonPages {
+.button-pages {
   margin-top: 1rem;
 
   .p-button-text {
     font-weight: bolder;
+    margin-left: 0.7rem;
   }
 
 }

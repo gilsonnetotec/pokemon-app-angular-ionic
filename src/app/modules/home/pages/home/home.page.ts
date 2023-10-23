@@ -52,6 +52,7 @@ export class HomePage extends BasePageComponent implements OnInit {
         this.countItems = resp["count"];
         this.paginate.total = count;
         this.items = resp["results"];
+        this.getPokemon(this.items[0].name);
         this.isLoading = false;
       })
 
